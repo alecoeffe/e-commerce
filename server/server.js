@@ -23,7 +23,7 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, func
     assert.equal(null, err);
 
     //Gestion de la route qui filtre les produits suivant 5 paramètres
-    app.get("/Products/criteria/:type/:brand/:minprice/:maxprice/:minpopularity", function(req, res) {
+    app.get("/Products/:type/:brand/:minprice/:maxprice/:minpopularity", function(req, res) {
         let filterObject = {};
         
         if (req.params.type != "*") {
