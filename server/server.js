@@ -19,7 +19,7 @@ function productResearch (db, param, callback) {
     });
 }
 
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
     assert.equal(null, err);
 
     //Gestion de la route qui filtre les produits suivant 5 paramètres
