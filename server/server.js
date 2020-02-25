@@ -19,8 +19,10 @@ function productResearch (db, param, callback) {
     });
 }
 
-MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
+MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, database) {
     assert.equal(null, err);
+    console.log("Connection server réussie");
+    const db = database.db("OnlineSales");
 
     //Gestion de la route qui filtre les produits suivant 5 paramètres
     app.get("/Products/:type/:brand/:minprice/:maxprice/:minpopularity", function(req, res) {
@@ -44,7 +46,7 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, func
         }
 
         productResearch(db, {"message":"/Products", "filterObject": filterObject}, function(step, results) {
-            console.log(step+" avec "+results.length+" produits sélectionnés :");
+            console.log(step+" avec "+results.length+" produits sélectionnés");
             res.setHeader("Content-type", "application/json; charset=UTF-8");
             let json = JSON.stringify(results);
             res.end(json);
