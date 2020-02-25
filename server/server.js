@@ -21,8 +21,9 @@ function productResearch (db, param, callback) {
 
 MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, database) {
     assert.equal(null, err);
-    console.log("Connection server réussie");
     const db = database.db("OnlineSales");
+    
+    console.log("Connection server réussie");
 
     //Gestion de la route qui filtre les produits suivant 5 paramètres
     app.get("/Products/:type/:brand/:minprice/:maxprice/:minpopularity", function(req, res) {
@@ -57,7 +58,7 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, func
     app.get("/Product/id=:id", function(req, res) {
         let id = req.params.id;
         console.log("Dans /Product/id="+id);
-        if (/[0-9a-f] {24}/.test(id)) {
+        if (/[0-9a-f]{24}/.test(id)) {
             db.collection("Products").find({"_id": ObjectId(id)}).toArray(function(err, documents) {
                 let json = JSON.stringify({});
                 if (documents !== undefined && documents[0] !== undefined) {
